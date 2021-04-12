@@ -27,7 +27,7 @@ public class User {
 	private String lastName;
 	
 	@Column(name = "DOB")
-	private Date dob;
+	private String dob;
 	
 	@Column(name = "EMAIL")
 	private String email;
@@ -47,16 +47,16 @@ public class User {
 	@Column(name = "CITY_ID")
 	private Integer city_id;
 	
-	@Column(name = "PASSWORD")
+	@Column(name = "USER_PASSWORD")
 	private String password;
 	
 	@Column(name = "STATUS")
 	private String accountStatus;
 	
 	@Column(name = "CREATED_DATE")
-	private Date createdDate;
+	private String createdDate;
 	
 	@Column(name = "UPDATED_DATE")
-	private Date updatedDate;
+	private String updatedDate;
 	
 }

@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "STATES_MASTER")
+@Table(name = "STATE_MASTER")
 public class State {
 
 		@Id

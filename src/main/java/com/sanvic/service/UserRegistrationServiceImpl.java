@@ -1,5 +1,7 @@
 package com.sanvic.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,20 +43,24 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 		 if(userObj==null) {
 			 return "USER NOT FOUND";
 		 }
-		 else if(userObj.getAccountStatus().equals("LOCKED")) {
+		 else if(!password.equals(userObj.getPassword())) {
+			 return "INVALID USER CREDENTIALS";
+		 } 
+		 else if(userObj.getAccountStatus().equalsIgnoreCase("LOCKED")) {
 			 return "ACCOUNT LOCKED";
 		 }
-		 else if(password.equals(userObj.getPassword())) {
+		 else {
 			 return "VALID USER CREDENTIALS";
 		 }
-		 else {
-			 return "INVALID USER CREDENTIALS";
-		 }
+		 
 		
 	}
 
 	@Override
 	public Boolean saveUserDetails(User user) {
+		user.setCreatedDate(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
+		user.setDob(new SimpleDateFormat("dd-MM-yyyy").format(new Date()) );
+		user.setUpdatedDate(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
 		
 		User userObj = userRepo.save(user);
 		return userObj!=null;
@@ -71,13 +77,21 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 	@Override
 	public String unlockAccount(UnlockAccount unlockAccount) {
 		
-		User userObj = userRepo.findByEmail(unlockAccount.getEmail());
 		
+		User userObj = userRepo.findByEmail(unlockAccount.getEmail());
+		if(userObj == null)
+			return "USER NOT FOUND";
+		
+		if(userObj.getAccountStatus().equalsIgnoreCase("unlock")) {
+			return "USER ALREADY UNLOCK";
+		}
 		if(userObj.getPassword().equals(unlockAccount.getTempPassword())) {
 			
 			if(unlockAccount.getNewPassword().equals(unlockAccount.getConfirmPassword())) {
-				//System.out.println("Update value - > "+ userRepo.updateTempPawssword(unlockAccount.getNewPassword(), userObj.getUserId()));
+				if((userRepo.updateTempPawssword(unlockAccount.getNewPassword(), "UNLOCK", userObj.getUserId()))>0)
 				return "ACCOUNT UNLOCKED";
+				else 
+					return "ERROR IN UNLOCKING ACCOUNT";
 			}
 			else {
 				return "PASSWORD NOT MATCHED";
@@ -92,7 +106,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 	@Override
 	public Boolean forgotPassword(String emailId) {
 		User userObj = getUserByEmail(emailId);
-
+		// Email Sending Logic
 		return userObj!=null;
 		
 	}
@@ -102,7 +116,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 
 		Map<Integer, String> data = new HashMap<Integer, String>();
 		List<Country> countryList = countryRepo.findAll();
-		
+		//System.out.println(countryList);
 		countryList.forEach(country->{
 			
 			data.put(country.getCountryId(), country.getCountryName());
@@ -113,15 +127,26 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 	@Override
 	public Map<Integer, String> getStates(Integer countryId) {
 		
-		 List<State> stateObj = stateRepo.findByCountryId(countryId);
-		return null;
+		Map<Integer, String> data = new HashMap<Integer, String>();
+		 List<State> stateList = stateRepo.findByCountryId(countryId);
+		// System.out.println(stateList);
+		 stateList.forEach(state->{
+				
+				data.put(state.getStateId(), state.getStateName());
+			});
+		return data;
 	}
 
 	@Override
 	public Map<Integer, String> getCities(Integer stateId) {
-
+		Map<Integer, String> data = new HashMap<Integer, String>();
 		 List<City> cityList = cityRepo.findByStateId(stateId);
-		return null;
+		// System.out.println(cityList);
+		 cityList.forEach(city->{
+				
+				data.put(city.getCityId(), city.getCityName());
+			});
+		return data;
 	}
 
 }
