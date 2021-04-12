@@ -9,5 +9,5 @@ import com.sanvic.entity.State;
 
 public interface StateRepository extends JpaRepository<State, Serializable> {
 
-	//public List<State> findByCountryId(Integer counryId);
+	public List<State> findByCountryId(Integer counryId);
 }

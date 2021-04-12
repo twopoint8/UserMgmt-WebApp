@@ -1,6 +1,5 @@
 package com.sanvic.controller;
 
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +22,7 @@ public class UserController {
 	}
 	@PostMapping(
 					value = "/saveuser",
-					produces = "text.plain",
+					produces = "text/plain",
 					consumes = "application/json"
 				)
 	public String handleSaveUser(@RequestBody User user) {
@@ -38,9 +37,12 @@ public class UserController {
 		 */
 		Boolean isSaved = userService.saveUserDetails(user);
 		if(isSaved) {
+			System.out.println("Record Saved..");
 			return "Record Saved..";
+			
 		}
 		else {
+			System.out.println("Record not Saved.. !!");
 			return "Record not Saved.. !!";
 		}
 	}

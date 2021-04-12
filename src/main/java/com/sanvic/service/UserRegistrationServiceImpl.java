@@ -37,7 +37,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 	@Override
 	public String loginCheck(String emailId, String password) {
 		
-		 User userObj = null;//userRepo.findByEmail(emailId);
+		 User userObj = userRepo.findByEmail(emailId);
 		 if(userObj==null) {
 			 return "USER NOT FOUND";
 		 }
@@ -63,7 +63,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 	@Override
 	public User getUserByEmail(String emailId) {
 
-		User userObj = null;//userRepo.findByEmail(emailId);
+		User userObj = userRepo.findByEmail(emailId);
 		
 		return userObj;
 	}
@@ -71,7 +71,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 	@Override
 	public String unlockAccount(UnlockAccount unlockAccount) {
 		
-		User userObj = null;// userRepo.findByEmail(unlockAccount.getEmail());
+		User userObj = userRepo.findByEmail(unlockAccount.getEmail());
 		
 		if(userObj.getPassword().equals(unlockAccount.getTempPassword())) {
 			
@@ -113,14 +113,14 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 	@Override
 	public Map<Integer, String> getStates(Integer countryId) {
 		
-		 List<State> stateObj = null;//stateRepo.findByCountryId(countryId);
+		 List<State> stateObj = stateRepo.findByCountryId(countryId);
 		return null;
 	}
 
 	@Override
 	public Map<Integer, String> getCities(Integer stateId) {
 
-		 List<City> cityList = null; //cityRepo.findByStateId(stateId);
+		 List<City> cityList = cityRepo.findByStateId(stateId);
 		return null;
 	}
 

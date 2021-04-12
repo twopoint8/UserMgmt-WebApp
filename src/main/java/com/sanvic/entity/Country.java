@@ -1,11 +1,13 @@
 package com.sanvic.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
 
+@Entity
 @Data
 @Table(name = "COUNTRY_MASTER")
 public class Country {
