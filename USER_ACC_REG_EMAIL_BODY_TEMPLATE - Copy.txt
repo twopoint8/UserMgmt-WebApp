@@ -1,0 +1,13 @@
+Hi {fname} {lname},
+	<br><br>
+	Welcome to <b>Sanvic</b> family your registration is almost complete.
+	<br><br>
+	Please unlock your account using below details.
+	<br><br>
+	Temprory Password : {temp-pass}
+	<br><br>
+	<a href = "#">Click here to Unlock Account</a>
+	<br><br>
+
+Thanks<br>
+Sanvic.Inc

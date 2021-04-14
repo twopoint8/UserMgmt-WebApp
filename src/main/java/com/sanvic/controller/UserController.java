@@ -51,7 +51,7 @@ public class UserController {
 	
 	@GetMapping("/check")
 	public String check() {
-		
+		System.out.println(userService.forgotPassword("myselfvishant@gmail.com"));
 		return "Connection Success..";
 	}
 }

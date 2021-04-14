@@ -1,0 +1,9 @@
+Hi {fname} {lname},
+	<br><br>
+	Your password for account by email {email} is below:
+	<br><br>
+	Password : {password}
+	<br><br>
+	
+Thanks<br>
+Sanvic.Inc
